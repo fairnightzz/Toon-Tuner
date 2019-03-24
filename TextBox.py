@@ -18,7 +18,7 @@ class TextBox():
             topY = min(contained, key=lambda y: y.y).y
             bottomY = max(contained, key=lambda y: y.y).y
             self.x=leftX
-            self.y=rightX
+            self.y=topY
             self.width=rightX - leftX
             self.height=bottomY - topY
 

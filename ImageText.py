@@ -80,7 +80,6 @@ class ImageText():
 
 
 
-
 # Instantiates a client
 
 
