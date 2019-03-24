@@ -80,7 +80,7 @@ class Menu:
                                         self.dialog = self.newFile("Enter File Name")
                                         current = "Edit"
                                     elif current == mainl[1]:#Open file
-                                        self.dsoufasffyofhfyfhsffself.openFile("Open a picture")
+                                        self.dialog = self.openFile("Open a picture")
 
                                         
                                         print("in progresss")
@@ -98,6 +98,7 @@ class Menu:
                                         print("execute upload pic")
                                         link = self.importPic("Import picture link")
                                         print(self.dialog)
+                                        download.download(download.get_imgs(link),self.dialog)
                                         download.download(download.get_imgs(link),"User Files/%s/"%(self.dialog))
                                         # "User Files/%s/"%(self.dialog)
                                         imageTexts=[]
@@ -159,7 +160,7 @@ class Menu:
         test.mainloop()
         message = test.returnmessage()
         download.create_folder("User Files/%s/"%(message))
-        return message
+        return ("User Files/%s/"%(message))
 
     def importPic(self,message):
         test = takeInput(message)
