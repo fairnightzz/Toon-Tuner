@@ -6,7 +6,6 @@ import os
 
 def get_imgs(site):
     source = requests.get(site).text
-    print(source)
     soup = bs(source, "lxml")
     urls = [str(url["src"]) for url in soup.findAll("img")
             if ".jpg" in str(site+url["src"]) or ".png" in str(site+url["src"])]
@@ -24,7 +23,6 @@ def download(urls,directory):
                 else:
                 """
                 urllib.request.urlretrieve(url, "%s/img%d.png"%(directory,i))
-                print("image",i)
                 i += 1
             except:
                 print(url)

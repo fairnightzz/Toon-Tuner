@@ -28,7 +28,6 @@ class TextBox():
             self.y=box.y
             self.width=box.width
             self.height=box.height
-            print(self.text)
             try:
                 self.wrapped = wrap(self.text,self.width/8)
             except:

@@ -26,7 +26,6 @@ class ImageText():
         response = ImageText.client.text_detection(image=image)
         texts = response.text_annotations
         self.getTextBoxes(boxes,[textcell(i) for i in texts[1:]],fontN)
-        print(self.text_boxes)
     @staticmethod
     def getBoxes(surface):
         

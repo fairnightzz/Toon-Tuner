@@ -119,13 +119,13 @@ class Menu:
                                         imageTexts=[]
                                         y=0
                                         for i in glob((self.dialog)+"*"):
-                                            #print(i)
+
                                             img=image.load(i)
 
                                             
                                             imageTexts.append(ImageText(i,img,0,y,MFont,screen))
                                             y+=img.get_rect().y
-                                        print("This is the length of the string",len(imageTexts))  
+
 
 
 
@@ -144,7 +144,7 @@ class Menu:
                                             image.save(cropped,self.dialog+"translated.png")
 
                                     elif n == 1:
-                                        print("Leave")
+
                                         current = "Main"
 
                             
