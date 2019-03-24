@@ -16,7 +16,8 @@ def download(urls):
     i = 1
     for url in urls:
         try:
-            urllib.request.urlretrieve(url, "img{}.png".format(i))
+            urllib.request.urlretrieve(url, "Images/img{}.png".format(i))
+            print("image",i)
             i += 1
         except:
             pass
@@ -30,6 +31,6 @@ def create_folder(directory):
         print("Error")
 
 
-create_folder("./test/")
+create_folder("./Images/")
 download(get_imgs("https://mangadejapan.com/articles/detail/1104"))
 print("done")
