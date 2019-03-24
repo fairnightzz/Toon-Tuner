@@ -85,7 +85,7 @@ class Menu:
                                         
                                         print("in progresss")
                                         current = "Edit"
-                                    elif current == main1[2]: #settings
+                                    elif current == mainl[2]: #settings
                                         print("settings")
 
                         elif current == "Edit":
@@ -100,9 +100,15 @@ class Menu:
                                         print(self.dialog)
                                         download.download(download.get_imgs(link),"User Files/%s/"%(self.dialog))
                                         # "User Files/%s/"%(self.dialog)
-                                        imageTexts=[ImageText(i,image.save(i),0,0) )]
+                                        imageTexts=[]
+                                        x=0
                                         for i in glob.glob("User Files/%s/" % (self.dialog)):
-                                            imageTexts.append(ImageText(i,image.save(i)),0,)
+                                            img=image.load(i)
+
+
+                                            imageTexts.append(ImageText(i,img,0,x))
+                                            x+=img.get_rect().x
+
 
 
 
