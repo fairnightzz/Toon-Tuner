@@ -99,16 +99,16 @@ class Menu:
                                         link = self.importPic("Import picture link")
                                         print(self.dialog)
                                         download.download(download.get_imgs(link),self.dialog)
-                                        download.download(download.get_imgs(link),"User Files/%s/"%(self.dialog))
+                                        download.download(download.get_imgs(link),(self.dialog))
                                         # "User Files/%s/"%(self.dialog)
                                         imageTexts=[]
-                                        x=0
-                                        for i in glob.glob("User Files/%s/" % (self.dialog)):
+                                        y=0
+                                        for i in glob((self.dialog)):
                                             img=image.load(i)
 
 
-                                            imageTexts.append(ImageText(i,img,0,x))
-                                            x+=img.get_rect().x
+                                            imageTexts.append(ImageText(i,img,0,y))
+                                            y+=img.get_rect().y
 
 
 
