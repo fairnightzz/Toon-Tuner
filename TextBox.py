@@ -12,14 +12,15 @@ class TextBox():
             " ".join(c.text for c in contained),
             source_language=TextBox.source,
             target_language=TextBox.target).values())[0]
-        leftX=min(contained,key=lambda x:x.x).x
-        rightX=min(contained,key=lambda x:x.x).x
-        topY = min(contained, key=lambda y: y.y).y
-        bottomY = max(contained, key=lambda y: y.y).y
-        self.x=leftX
-        self.y=rightX
-        self.width=rightX - leftX
-        self.height=bottomY - topY
+        if self.text:
+            leftX=min(contained,key=lambda x:x.x).x
+            rightX=min(contained,key=lambda x:x.x).x
+            topY = min(contained, key=lambda y: y.y).y
+            bottomY = max(contained, key=lambda y: y.y).y
+            self.x=leftX
+            self.y=rightX
+            self.width=rightX - leftX
+            self.height=bottomY - topY
 
 
 

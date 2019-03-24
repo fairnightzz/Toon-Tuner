@@ -61,10 +61,12 @@ class Menu:
                                     editpic[n].pressed = True
 
                     if evt.button == 4 and loaded:#scrolling up
-                        x-=5
-                        
+                        for i in imageTexts:
+                            i.y+=15
+                            
                     if evt.button == 5 and loaded: #scrolling down
-                        x+=5
+                        for i in imageTexts:
+                            i.y-=15
                     
 
                                 
@@ -81,6 +83,27 @@ class Menu:
                                         current = "Edit"
                                     elif current == mainl[1]:#Open file
                                         self.dialog = self.openFile("Open a picture")
+                                        imageTexts=[]
+                                        y=0
+                                        for i in glob((self.dialog)+"*"):
+                                            #print(i)
+                                            img=image.load(i)
+
+                                            
+                                            imageTexts.append(ImageText(i,img,0,y))
+                                            y+=img.get_rect().y
+                                            
+
+
+
+
+                                        
+
+
+                                        #Execute translation
+                                        
+
+                                        loaded = True
 
                                         
                                         print("in progresss")
@@ -99,16 +122,17 @@ class Menu:
                                         link = self.importPic("Import picture link")
                                         print(self.dialog)
                                         download.download(download.get_imgs(link),self.dialog)
-                                        download.download(download.get_imgs(link),(self.dialog))
-                                        # "User Files/%s/"%(self.dialog)
+
                                         imageTexts=[]
                                         y=0
-                                        for i in glob((self.dialog)):
+                                        for i in glob((self.dialog)+"*"):
+                                            #print(i)
                                             img=image.load(i)
 
-
+                                            
                                             imageTexts.append(ImageText(i,img,0,y))
                                             y+=img.get_rect().y
+                                            
 
 
 
@@ -147,7 +171,9 @@ class Menu:
 
                 if loaded:
 
-                    screen.blit(manga,(400,y))
+                    
+                    for i in imageTexts:
+                        screen.blit(i.image,(i.x,i.y))
             elif current == "Open File":
                 print("open file")
             elif current == "Settings":
@@ -172,7 +198,7 @@ class Menu:
         root = Tk()
         root.withdraw()
         root.filename =  filedialog.askopenfilename(initialdir = "User Files",title = message,filetypes = (("jpeg files","*.jpg"),("png files","*.png")))
-        print(root.filename)
+        return (root.filename)
 
 class takeInput(Tk):
     def __init__(self,message):

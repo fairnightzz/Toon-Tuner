@@ -13,7 +13,7 @@ class ImageText():
         self.x=x
         self.y=y
         self.text_boxes=[]
-        boxes=ImageText.getBoxes(image)
+        boxes=ImageText.getBoxes(image.copy())
 
         """Detects text in the file."""
 
@@ -28,6 +28,7 @@ class ImageText():
         print(self.text_boxes)
     @staticmethod
     def getBoxes(surface):
+        
         array = PixelArray(surface)
 
         textboxes = []
