@@ -19,10 +19,10 @@ class TextBox():
             target_language=TextBox.target).values())[0]
         
         if self.text:
-            self.x=box.x+box.width/6
-            self.y=box.y+box.height/6
-            self.width=box.width*2/3
-            self.height=box.height*2/3
+            self.x=box.x+box.width/4
+            self.y=box.y+box.height/4
+            self.width=box.width/2
+            self.height=box.height/2
             try:
                 self.wrapped = wrap(self.text,self.width/8)
             except:
