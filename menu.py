@@ -3,13 +3,12 @@ import os
 from tkinter import filedialog
 from tkinter import*
 import download
+from Btn import*
 os.environ['SDL_VIDEO_WINDOW_POS'] = '20,30'
 res=(1200,750)
 screen=display.set_mode(res)
 display.set_caption("Toon-Tuner")
 screen.fill((0,0,0))
-global In
-In = ""
 class Menu:
     def __init__(self,username):
         if username == "Guest":
@@ -20,7 +19,9 @@ class Menu:
         running=True
         current = "Main"
         mainl = ["New File","Open File","Settings"]
-        mainpic = [image.load("Graphics/LightNew.png"),image.load("Graphics/LightOpen.png"),image.load("Graphics/LightSettings.png")]
+        mainpic = [Btn(image.load("Graphics/LightNew.png"),image.load("Graphics/LightNew#.png"),200,100)\
+                   ,Btn(image.load("Graphics/LightOpen.png"),image.load("Graphics/LightOpen#.png"),\
+                           200,300),Btn(image.load("Graphics/LightSettings.png"),image.load("Graphics/LightSettings#.png"),200,500)]
         pos = [[200,100],[200,300],[200,500]]
         #178,100
         
@@ -34,16 +35,30 @@ class Menu:
                 if evt.type == MOUSEBUTTONDOWN:
                     if current == "Main":
                         for n in range(len(mainpic)):
-                            if Rect(pos[n][0],pos[n][1],178,100).collidepoint(mx,my):
+                            if Rect(mainpic[n].rect[0],mainpic[n].rect[1],178,100).collidepoint(mx,my):
                                 #current = mainl[n]
                                 print(mainl[n])
-                                dialog = self.newFile("Enter File Name")
-                                print(dialog)
-                                
-                                
+                                mainpic[n].pressed = True
+                                #dialog = self.newFile("Enter File Name")
+                if evt.type == MOUSEBUTTONUP:
+                    if current == "Main":
+                        for n in range(len(mainpic)):
+                            mainpic[n].pressed = False
+                        for n in range(len(mainpic)):
+                            if Rect(mainpic[n].rect[0],mainpic[n].rect[1],178,100).collidepoint(mx,my):
+                                current = mainl[n]
+                                if current == mainl[0]:
+                                    dialog = self.newFile("Enter File Name")
+            screen.fill((0,0,0))
             if current == "Main":
-                        for i in range(len(mainpic)):
-                            screen.blit(mainpic[i],(pos[i]))
+                for i in range(len(mainpic)):
+                    mainpic[i].draw(screen)
+            elif current == "New File":
+                print("new file")
+            elif current == "Open File":
+                print("open file")
+            elif current == "Settings":
+                print("settings")
             display.flip()
         quit()
 
@@ -81,7 +96,9 @@ class Main:
         self.menu = Menu(name)
         settings.close()
         
-        
+
+
+
 
 
         
