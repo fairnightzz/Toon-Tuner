@@ -18,13 +18,13 @@ def download(urls,directory):
     try:
         for url in urls:
             try:
-
+                """
                 if url.find("/") == 0:
                     urllib.request.urlretrieve("https://merakiscans.com"+url, "%s/img%d.png"%(directory,i))
                 else:
-                
-                    urllib.request.urlretrieve(url, "%s/img%d.png"%(directory,i))
-                    print("image",i)
+                """
+                urllib.request.urlretrieve(url, "%s/img%d.png"%(directory,i))
+                print("image",i)
                 i += 1
             except:
                 print(url)

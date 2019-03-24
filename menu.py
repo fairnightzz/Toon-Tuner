@@ -15,7 +15,7 @@ class Menu:
     def __init__(self,username):
         self.username = username
         font.init()
-        Mfont=font.SysFont("Architects Daughter",20)
+        MFont=font.SysFont("Architects Daughter",20)
         if username == "Guest":
             print("Change username")
             
@@ -28,18 +28,18 @@ class Menu:
         self.dialog = ""
         current = "Main"
         mainl = ["New File","Open File","Settings"]
-        mainpic = [Btn(image.load("Graphics/LightNew.png"),image.load("Graphics/LightNew#.png"),200,100)\
+        mainpic = [Btn(image.load("Graphics/LightNew.png"),image.load("Graphics/LightNew#.png"),900,100)\
                    ,Btn(image.load("Graphics/LightOpen.png"),image.load("Graphics/LightOpen#.png"),\
-                           200,300),Btn(image.load("Graphics/LightSettings.png"),image.load("Graphics/LightSettings#.png"),200,500)]
+                           900,300),Btn(image.load("Graphics/LightSettings.png"),image.load("Graphics/LightSettings#.png"),900,500)]
         pos = [[200,100],[200,300],[200,500]]
 
         editl = ["Import","Main","Save"]
-        editpic = [Btn(image.load("Graphics/LightImport.png"),image.load("Graphics/LightImport#.png"),200,100)\
+        editpic = [Btn(image.load("Graphics/LightImport.png"),image.load("Graphics/LightImport#.png"),900,100)\
                    ,Btn(image.load("Graphics/LightMenu.png"),image.load("Graphics/LightMenu#.png"),\
-                           200,300),Btn(image.load("Graphics/LightSave.png"),image.load("Graphics/LightSave#.png"),200,500)]
+                           900,300),Btn(image.load("Graphics/LightSave.png"),image.load("Graphics/LightSave#.png"),900,500)]
         
         #178,100
-        
+        background = image.load("Graphics/DarkBackground.png")
         mx,my = mouse.get_pos()
         while running:
             mx,my = mouse.get_pos()
@@ -92,26 +92,17 @@ class Menu:
                                             img=image.load(i)
 
                                             
-                                            imageTexts.append(ImageText(i,img,0,y,MFont))
+                                            imageTexts.append(ImageText(i,img,0,y,MFont,screen))
                                             y+=img.get_rect().y
-                                            
-
-
-
-
-                                        
-
-
+                                        print("THIS IS THE KENGTH",len(imageTexts))
                                         #Execute translation
-                                        
-
                                         loaded = True
-
-                                        
                                         print("in progresss")
                                         current = "Edit"
+    
                                     elif current == mainl[2]: #settings
                                         print("settings")
+
 
                         elif current == "Edit":
                             for n in range(len(editpic)):
@@ -132,7 +123,7 @@ class Menu:
                                             img=image.load(i)
 
                                             
-                                            imageTexts.append(ImageText(i,img,0,y))
+                                            imageTexts.append(ImageText(i,img,0,y,MFont,screen))
                                             y+=img.get_rect().y
                                             
 
@@ -146,10 +137,11 @@ class Menu:
                                         
 
                                         loaded = True                                    
-                                    elif n == 2:
+                                    elif n == 2: #Save
                                         if Rect(editpic[n].rect[0],editpic[n].rect[1],178,100).collidepoint(mx,my):
-                                            save = open("Settings.txt","r+")
-                                            save.close()
+                                            saved = screen.copy()
+                                            cropped = saved.subsurface((0,0,600,750))
+                                            image.save(cropped,self.dialog+"translated.png")
 
                                     elif n == 1:
                                         print("Leave")
@@ -163,7 +155,7 @@ class Menu:
                                     
 
                                     
-            screen.fill((0,0,0))
+            screen.blit(background,(0,0))
             if current == "Main":
                 for i in range(len(mainpic)):
                     mainpic[i].draw(screen)
@@ -175,7 +167,7 @@ class Menu:
 
                     
                     for i in imageTexts:
-                        i.drawN(screen)
+                        i.drawN()
             elif current == "Open File":
                 print("open file")
             elif current == "Settings":

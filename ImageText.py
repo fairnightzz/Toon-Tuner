@@ -8,7 +8,8 @@ from google.cloud import vision
 
 class ImageText():
     client = vision.ImageAnnotatorClient()
-    def __init__(self,file_name,image,x,y,fontN):
+    def __init__(self,file_name,image,x,y,fontN,screen):
+        self.screen=screen
         self.image=image
         self.x=x
         self.y=y
@@ -43,7 +44,7 @@ class ImageText():
                         for d in dirs:
                             if 0 <= cur[0] + d[0] < array.shape[0] and 0 <= cur[1] + d[1] < array.shape[1]:
                                 nex = array[cur[0] + d[0], cur[1] + d[1]]
-                                if surface.map_rgb((250, 250, 250)) <= nex:
+                                if surface.map_rgb((235, 235, 235)) <= nex:
                                     points.append((cur[0] + d[0], cur[1] + d[1]))
                                     queue.append((cur[0] + d[0], cur[1] + d[1]))
                                     array[cur[0], cur[1]] = (0, 0, 0)
@@ -60,18 +61,18 @@ class ImageText():
 
         for box in boxes:
             
-            b=TextBox(box,text,fontN)
+            b=TextBox(box,text,fontN,self.screen)
             if not b.isEmpty():
                 self.text_boxes.append(b)
-    def drawN(self,screen):
-        screen.blit(self.image,(self.x,self.y))
+    def drawN(self):
+        self.screen.blit(self.image,(self.x,self.y))
         
         for i in self.text_boxes:
 
             #draw.rect(screen,(255,255,255),(100,100,300,500))
-            draw.rect(screen,(255,255,255),(i.x+self.x,i.y+self.y,i.width,i.height))
+            draw.rect(self.screen,(255,255,255),(i.x+self.x,i.y+self.y,i.width,i.height))
     
-
+            i.drawN(self)        
 
 
 
