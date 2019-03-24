@@ -62,6 +62,7 @@ class Menu:
 
                     if evt.button == 4 and loaded:#scrolling up
                         x-=5
+                        
                     if evt.button == 5 and loaded: #scrolling down
                         x+=5
                     
@@ -79,7 +80,9 @@ class Menu:
                                         self.dialog = self.newFile("Enter File Name")
                                         current = "Edit"
                                     elif current == mainl[1]:#Open file
-                                        #dialog = self.
+                                        self.dsoufasffyofhfyfhsffself.openFile("Open a picture")
+
+                                        
                                         print("in progresss")
                                         current = "Edit"
                                     elif current == main1[2]: #settings
@@ -158,6 +161,11 @@ class Menu:
         link = test.returnmessage()
         return link
 
+    def openFile(self,message):
+        root = Tk()
+        root.withdraw()
+        root.filename =  filedialog.askopenfilename(initialdir = "User Files",title = message,filetypes = (("jpeg files","*.jpg"),("png files","*.png")))
+        print(root.filename)
 
 class takeInput(Tk):
     def __init__(self,message):
