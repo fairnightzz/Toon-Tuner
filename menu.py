@@ -11,12 +11,14 @@ display.set_caption("Toon-Tuner")
 screen.fill((0,0,0))
 class Menu:
     def __init__(self,username):
+        self.username = username
         if username == "Guest":
             print("Change username")
             
         else:
             print("Welcome",username)
         running=True
+        self.dialog = ""
         current = "Main"
         mainl = ["New File","Open File","Settings"]
         mainpic = [Btn(image.load("Graphics/LightNew.png"),image.load("Graphics/LightNew#.png"),200,100)\
@@ -24,10 +26,10 @@ class Menu:
                            200,300),Btn(image.load("Graphics/LightSettings.png"),image.load("Graphics/LightSettings#.png"),200,500)]
         pos = [[200,100],[200,300],[200,500]]
 
-        editl = ["Import","Main Menu"]
+        editl = ["Import","Main","Save"]
         editpic = [Btn(image.load("Graphics/LightImport.png"),image.load("Graphics/LightImport#.png"),200,100)\
                    ,Btn(image.load("Graphics/LightMenu.png"),image.load("Graphics/LightMenu#.png"),\
-                           200,300)]
+                           200,300),Btn(image.load("Graphics/LightSave.png"),image.load("Graphics/LightSave#.png"),200,500)]
         
         #178,100
         
@@ -47,10 +49,15 @@ class Menu:
                                 mainpic[n].pressed = True
                                 #dialog = self.newFile("Enter File Name")
 
-                    if current == "Edit":
+                    elif current == "Edit":
                         for n in range(len(editpic)):
                             if Rect(editpic[n].rect[0],editpic[n].rect[1],178,100).collidepoint(mx,my):
                                 editpic[n].pressed = True
+
+
+                    
+
+                                
                 if evt.type == MOUSEBUTTONUP:
                     if current == "Main":
                         for n in range(len(mainpic)):
@@ -59,7 +66,7 @@ class Menu:
                             if Rect(mainpic[n].rect[0],mainpic[n].rect[1],178,100).collidepoint(mx,my):
                                 current = mainl[n]
                                 if current == mainl[0]:#New file
-                                    dialog = self.newFile("Enter File Name")
+                                    self.dialog = self.newFile("Enter File Name")
                                     current = "Edit"
                                 elif current == mainl[1]:#Open file
                                     #dialog = self.
@@ -68,7 +75,7 @@ class Menu:
                                 elif current == main1[2]: #settings
                                     print("settings")
 
-                    if current == "Edit":
+                    elif current == "Edit":
                         for n in range(len(editpic)):
                             editpic[n].pressed = False
 
@@ -76,8 +83,26 @@ class Menu:
                             if Rect(editpic[n].rect[0],editpic[n].rect[1],178,100).collidepoint(mx,my):
                                 if n == 0:
                                     print("execute upload pic")
+                                    link = self.importPic("Import picture link")
+                                    print(self.dialog)
+                                    download.download(download.get_imgs(link),"User Files/%s/"%(self.dialog))
+                                    
+
+                                    #Execute translation
+                                elif n == 2:
+
+
                                 elif n == 1:
                                     print("Leave")
+                                    current = "Main"
+
+                    elif current == "Save":
+                        for n in range(len(editpic)):
+                            editpic[n].pressed = False
+                            if Rect(editpic[n].rect[0],editpic[n].rect[1],178,100).collidepoint(mx,my):
+                                save = open("Settings.txt","r+")
+                                
+                        
 
                                     
 
@@ -86,8 +111,9 @@ class Menu:
             if current == "Main":
                 for i in range(len(mainpic)):
                     mainpic[i].draw(screen)
-            elif current == "New File":
-                print("new file")
+            elif current == "Edit":
+                for i in range(len(editpic)):
+                    editpic[i].draw(screen)
             elif current == "Open File":
                 print("open file")
             elif current == "Settings":
@@ -105,7 +131,8 @@ class Menu:
     def importPic(self,message):
         test = takeInput(message)
         test.mainloop()
-        message = test.returnmessage()
+        link = test.returnmessage()
+        return link
 
 
 class takeInput(Tk):
