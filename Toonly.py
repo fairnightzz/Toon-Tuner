@@ -1,4 +1,4 @@
 from ImageText import *
-x=ImageText("assets/20120404172936_IMAG01_16.jpg")
+x=ImageText("assets/1550071840056.jpg")
 
 
