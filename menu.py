@@ -81,7 +81,7 @@ class Main:
         self.menu = Menu(name)
         settings.close()
         
-        
+
 
 
         
