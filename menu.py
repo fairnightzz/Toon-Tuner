@@ -125,7 +125,7 @@ class Menu:
                                             
                                             imageTexts.append(ImageText(i,img,0,y,MFont,screen))
                                             y+=img.get_rect().y
-                                            
+                                        print("This is the length of the string",len(imageTexts))  
 
 
 
