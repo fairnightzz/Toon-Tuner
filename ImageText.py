@@ -20,7 +20,8 @@ class ImageText():
 
 
 
-        self.cells=[textcell(text) for text in texts]
+        self.text=textcell(texts[0]).translated
+
 
 
 
