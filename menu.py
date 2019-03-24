@@ -15,11 +15,21 @@ class Menu:
         else:
             print("Welcome",username)
         running=True
+        current = "Main"
+        mainl = ["New File","Open File","Settings"]
+        mainpic = [image.load("Graphics/LightNew.png"),image.load("Graphics/DarkIntro.png"),image.load("Graphics/LightIntro.png")]
+        pos = [[200,100],[200,300],[200,500]]
+        
         while running:
             for evt in event.get():
                 if evt.type == QUIT:
                     running = False
             draw.rect(screen,(255,0,0),(100,100,400,400))
+            if current == "Main":
+                for i in range(len(mainpic)):
+                    screen.blit(mainpic[i],(pos[i]))
+            
+            
             display.flip()
         quit()
 
