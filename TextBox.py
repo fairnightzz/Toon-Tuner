@@ -20,7 +20,7 @@ class TextBox():
         self.y=rightX
         self.width=rightX - leftX
         self.height=bottomY - topY
-        
+
 
 
 

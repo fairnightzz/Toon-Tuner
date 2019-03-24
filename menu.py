@@ -1,8 +1,10 @@
 from pygame import*
 import os
 from tkinter import filedialog
+from ImageText import *
 from tkinter import*
 import download
+from glob import *
 from Btn import*
 os.environ['SDL_VIDEO_WINDOW_POS'] = '20,30'
 res=(1200,750)
@@ -94,6 +96,13 @@ class Menu:
                                         link = self.importPic("Import picture link")
                                         print(self.dialog)
                                         download.download(download.get_imgs(link),"User Files/%s/"%(self.dialog))
+                                        # "User Files/%s/"%(self.dialog)
+                                        imageTexts=[ImageText(i,image.save(i),0,0) )]
+                                        for i in glob.glob("User Files/%s/" % (self.dialog)):
+                                            imageTexts.append(ImageText(i,image.save(i)),0,)
+
+
+
                                         
 
 
@@ -127,6 +136,7 @@ class Menu:
                     editpic[i].draw(screen)
 
                 if loaded:
+
                     screen.blit(manga,(400,y))
             elif current == "Open File":
                 print("open file")

@@ -8,8 +8,10 @@ from google.cloud import vision
 
 class ImageText():
     client = vision.ImageAnnotatorClient()
-    def __init__(self,file_name,image):
+    def __init__(self,file_name,image,x,y):
         self.image=image
+        self.x=x
+        self.y=y
         self.text_boxes=[]
         boxes=ImageText.getBoxes(image)
 
@@ -61,7 +63,6 @@ class ImageText():
             b=TextBox(box,text)
             if not b.isEmpty():
                 self.text_boxes.append(b)
-t=ImageText("assets/1550071840056.jpg",image.load("assets/1550071840056.jpg"))
 
 
 
