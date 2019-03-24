@@ -1,15 +1,20 @@
 import io
-import os
 from TextCell import *
-from math import *
 from pygame import *
+from TextBox import *
 # Imports the Google Cloud client library
 from google.cloud import vision
-from google.cloud.vision import types
+
+
 class ImageText():
     client = vision.ImageAnnotatorClient()
-    def __init__(self,file_name,image):
+    def __init__(self,file_name,image,x,y):
+        self.image=image
+        self.x=x
+        self.y=y
         self.text_boxes=[]
+        boxes=ImageText.getBoxes(image)
+
         """Detects text in the file."""
 
         with io.open(file_name, 'rb') as image_file:
@@ -19,9 +24,10 @@ class ImageText():
 
         response = ImageText.client.text_detection(image=image)
         texts = response.text_annotations
-        self.text=textcell(texts[0])
-
-    def getTextboxes(surface):
+        self.getTextBoxes(boxes,[textcell(i) for i in texts[1:]])
+        print(self.text_boxes)
+    @staticmethod
+    def getBoxes(surface):
         array = PixelArray(surface)
 
         textboxes = []
@@ -46,9 +52,18 @@ class ImageText():
                     topY = min(points, key=lambda y: y[1])[1]
                     bottomY = max(points, key=lambda y: y[1])[1]
                     if len(points) >= 150:
-                        textboxes.append((leftX, topY, rightX - leftX, bottomY - topY))
+                        textboxes.append(Rect(leftX, topY, rightX - leftX, bottomY - topY))
 
         return textboxes
+    def getTextBoxes(self,boxes,text):
+
+        for box in boxes:
+            if box.width>self.image.get_width()-self.image.get_width()/10:
+                continue
+            b=TextBox(box,text)
+            if not b.isEmpty():
+                self.text_boxes.append(b)
+
 
 
 
