@@ -31,6 +31,6 @@ def create_folder(directory):
         print("Error")
 
 
-create_folder("./Images/")
-download(get_imgs("https://mangadejapan.com/articles/detail/1104"))
+#create_folder("User Files/Images/")
+#download(get_imgs("https://mangadejapan.com/articles/detail/1104"))
 print("done")
