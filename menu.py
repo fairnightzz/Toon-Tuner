@@ -18,6 +18,9 @@ class Menu:
         else:
             print("Welcome",username)
         running=True
+        loaded = False
+        y = 0
+        manga = image.load("Graphics/LightImport.png")
         self.dialog = ""
         current = "Main"
         mainl = ["New File","Open File","Settings"]
@@ -41,66 +44,74 @@ class Menu:
                     running = False
             #draw.rect(screen,(255,0,0),(100,100,400,400))
                 if evt.type == MOUSEBUTTONDOWN:
-                    if current == "Main":
-                        for n in range(len(mainpic)):
-                            if Rect(mainpic[n].rect[0],mainpic[n].rect[1],178,100).collidepoint(mx,my):
-                                #current = mainl[n]
-                                print(mainl[n])
-                                mainpic[n].pressed = True
-                                #dialog = self.newFile("Enter File Name")
+                    if evt.button == 1:
+                        if current == "Main":
+                            for n in range(len(mainpic)):
+                                if Rect(mainpic[n].rect[0],mainpic[n].rect[1],178,100).collidepoint(mx,my):
+                                    #current = mainl[n]
+                                    print(mainl[n])
+                                    mainpic[n].pressed = True
+                                    #dialog = self.newFile("Enter File Name")
 
-                    elif current == "Edit":
-                        for n in range(len(editpic)):
-                            if Rect(editpic[n].rect[0],editpic[n].rect[1],178,100).collidepoint(mx,my):
-                                editpic[n].pressed = True
+                        elif current == "Edit":
+                            for n in range(len(editpic)):
+                                if Rect(editpic[n].rect[0],editpic[n].rect[1],178,100).collidepoint(mx,my):
+                                    editpic[n].pressed = True
 
-
+                    if evt.button == 4 and loaded:#scrolling up
+                        x-=5
+                    if evt.button == 5 and loaded: #scrolling down
+                        x+=5
                     
 
                                 
                 if evt.type == MOUSEBUTTONUP:
-                    if current == "Main":
-                        for n in range(len(mainpic)):
-                            mainpic[n].pressed = False
-                        for n in range(len(mainpic)):
-                            if Rect(mainpic[n].rect[0],mainpic[n].rect[1],178,100).collidepoint(mx,my):
-                                current = mainl[n]
-                                if current == mainl[0]:#New file
-                                    self.dialog = self.newFile("Enter File Name")
-                                    current = "Edit"
-                                elif current == mainl[1]:#Open file
-                                    #dialog = self.
-                                    print("in progresss")
-                                    current = "Edit"
-                                elif current == main1[2]: #settings
-                                    print("settings")
+                    if evt.button == 1:
+                        if current == "Main":
+                            for n in range(len(mainpic)):
+                                mainpic[n].pressed = False
+                            for n in range(len(mainpic)):
+                                if Rect(mainpic[n].rect[0],mainpic[n].rect[1],178,100).collidepoint(mx,my):
+                                    current = mainl[n]
+                                    if current == mainl[0]:#New file
+                                        self.dialog = self.newFile("Enter File Name")
+                                        current = "Edit"
+                                    elif current == mainl[1]:#Open file
+                                        #dialog = self.
+                                        print("in progresss")
+                                        current = "Edit"
+                                    elif current == main1[2]: #settings
+                                        print("settings")
 
-                    elif current == "Edit":
-                        for n in range(len(editpic)):
-                            editpic[n].pressed = False
+                        elif current == "Edit":
+                            for n in range(len(editpic)):
+                                editpic[n].pressed = False
 
-                        for n in range(len(editpic)):
-                            if Rect(editpic[n].rect[0],editpic[n].rect[1],178,100).collidepoint(mx,my):
-                                if n == 0:
-                                    print("execute upload pic")
-                                    link = self.importPic("Import picture link")
-                                    print(self.dialog)
-                                    download.download(download.get_imgs(link),"User Files/%s/"%(self.dialog))
-                                    
-
-                                    #Execute translation
-                                elif n == 2:
+                            for n in range(len(editpic)):
+                                if Rect(editpic[n].rect[0],editpic[n].rect[1],178,100).collidepoint(mx,my):
+                                    if n == 0:
+                                        print("execute upload pic")
+                                        link = self.importPic("Import picture link")
+                                        print(self.dialog)
+                                        download.download(download.get_imgs(link),"User Files/%s/"%(self.dialog))
+                                        
 
 
-                                elif n == 1:
-                                    print("Leave")
-                                    current = "Main"
+                                        #Execute translation
+                                        
 
-                    elif current == "Save":
-                        for n in range(len(editpic)):
-                            editpic[n].pressed = False
-                            if Rect(editpic[n].rect[0],editpic[n].rect[1],178,100).collidepoint(mx,my):
-                                save = open("Settings.txt","r+")
+                                        loaded = True                                    
+                                    elif n == 2:
+                                        if Rect(editpic[n].rect[0],editpic[n].rect[1],178,100).collidepoint(mx,my):
+                                            save = open("Settings.txt","r+")
+                                            save.close()
+
+                                    elif n == 1:
+                                        print("Leave")
+                                        current = "Main"
+
+                            
+                                
                                 
                         
 
@@ -114,6 +125,9 @@ class Menu:
             elif current == "Edit":
                 for i in range(len(editpic)):
                     editpic[i].draw(screen)
+
+                if loaded:
+                    screen.blit(manga,(400,y))
             elif current == "Open File":
                 print("open file")
             elif current == "Settings":
