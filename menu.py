@@ -27,6 +27,7 @@ class Menu:
         manga = image.load("Graphics/LightImport.png")
         self.dialog = ""
         current = "Main"
+        title = transform.scale(image.load("Graphics/DarkIntro.png"),(960,540))
         mainl = ["New File","Open File","Settings"]
         mainpic = [Btn(image.load("Graphics/LightNew.png"),image.load("Graphics/LightNew#.png"),900,100)\
                    ,Btn(image.load("Graphics/LightOpen.png"),image.load("Graphics/LightOpen#.png"),\
@@ -157,6 +158,7 @@ class Menu:
                                     
             screen.blit(background,(0,0))
             if current == "Main":
+                screen.blit(title,(0,0))
                 for i in range(len(mainpic)):
                     mainpic[i].draw(screen)
             elif current == "Edit":
