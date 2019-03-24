@@ -1,6 +1,6 @@
 import io
 import os
-GOOGLE_APPLICATION_CREDENTIALS="/Users/nithinmuthukumar/auth.json"
+import TranslatedImage
 # Imports the Google Cloud client library
 from google.cloud import vision
 from google.cloud.vision import types
@@ -24,6 +24,5 @@ response = client.label_detection(image=image)
 labels = response.label_annotations
 
 
-print('Labels:')
 for label in labels:
-    print(label.description)
+    TranslatedImage()
