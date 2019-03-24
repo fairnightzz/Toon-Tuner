@@ -15,12 +15,11 @@ def get_imgs(site):
 def download(urls):
     i = 1
     for url in urls:
-        try:
-            urllib.request.urlretrieve(url, "Images/img{}.png".format(i))
-            print("image",i)
-            i += 1
-        except:
-            pass
+
+        urllib.request.urlretrieve(url, "Images/img{}.png".format(i))
+        print("image",i)
+        i += 1
+
 
 
 def create_folder(directory):
