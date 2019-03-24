@@ -2,7 +2,7 @@ from pygame import*
 import os
 from tkinter import filedialog
 from tkinter import*
-
+import download
 os.environ['SDL_VIDEO_WINDOW_POS'] = '20,30'
 res=(1200,750)
 screen=display.set_mode(res)
@@ -38,7 +38,7 @@ class Menu:
                                 #current = mainl[n]
                                 print(mainl[n])
                                 self.newFile("Enter File Name")
-                                print(In)
+                                
             if current == "Main":
                         for i in range(len(mainpic)):
                             screen.blit(mainpic[i],(pos[i]))
@@ -48,6 +48,8 @@ class Menu:
     def newFile(self,message):
         test = takeInput(message)
         test.mainloop()
+        download.create_folder("User Files/%s/"%(In))
+        
 
 
 class takeInput(Tk):
