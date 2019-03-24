@@ -64,6 +64,11 @@ class ImageText():
             b=TextBox(box,text)
             if not b.isEmpty():
                 self.text_boxes.append(b)
+    def draw(self,screen):
+        screen.blit(self.image,(self.x,self.y))
+        for i in self.text_boxes:
+            draw.rect(screen,(255,255,255),(i.x,i.y,i.width,i.height))
+
 
 
 
