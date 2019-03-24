@@ -37,7 +37,9 @@ class Menu:
                             if Rect(pos[n][0],pos[n][1],178,100).collidepoint(mx,my):
                                 #current = mainl[n]
                                 print(mainl[n])
-                                self.newFile("Enter File Name")
+                                dialog = self.newFile("Enter File Name")
+                                print(dialog)
+                                
                                 
             if current == "Main":
                         for i in range(len(mainpic)):
@@ -48,7 +50,9 @@ class Menu:
     def newFile(self,message):
         test = takeInput(message)
         test.mainloop()
-        download.create_folder("User Files/%s/"%(In))
+        message = test.returnmessage()
+        download.create_folder("User Files/%s/"%(message))
+        return message
         
 
 
@@ -59,13 +63,16 @@ class takeInput(Tk):
         self.button = Button(self, text=message, command=self.on_button)
         self.entry.pack()
         self.button.pack()
+        self.message = ""
 
     def on_button(self):
-        global In
-        In = (self.entry.get())
+        self.message = (self.entry.get())
         self.destroy()
+        
+        
         #self.destroy()
-
+    def returnmessage(self):
+        return self.message
 
 class Main:
     def __init__(self):
