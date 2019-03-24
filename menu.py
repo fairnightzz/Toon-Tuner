@@ -14,6 +14,8 @@ screen.fill((0,0,0))
 class Menu:
     def __init__(self,username):
         self.username = username
+        font.init()
+        Mfont=font.SysFont("Architects Daughter",20)
         if username == "Guest":
             print("Change username")
             
@@ -90,7 +92,7 @@ class Menu:
                                             img=image.load(i)
 
                                             
-                                            imageTexts.append(ImageText(i,img,0,y))
+                                            imageTexts.append(ImageText(i,img,0,y,MFont))
                                             y+=img.get_rect().y
                                             
 
@@ -173,7 +175,7 @@ class Menu:
 
                     
                     for i in imageTexts:
-                        screen.blit(i.image,(i.x,i.y))
+                        i.drawN(screen)
             elif current == "Open File":
                 print("open file")
             elif current == "Settings":

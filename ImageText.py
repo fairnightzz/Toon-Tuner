@@ -8,7 +8,7 @@ from google.cloud import vision
 
 class ImageText():
     client = vision.ImageAnnotatorClient()
-    def __init__(self,file_name,image,x,y):
+    def __init__(self,file_name,image,x,y,fontN):
         self.image=image
         self.x=x
         self.y=y
@@ -24,7 +24,7 @@ class ImageText():
 
         response = ImageText.client.text_detection(image=image)
         texts = response.text_annotations
-        self.getTextBoxes(boxes,[textcell(i) for i in texts[1:]])
+        self.getTextBoxes(boxes,[textcell(i) for i in texts[1:]],fontN)
         print(self.text_boxes)
     @staticmethod
     def getBoxes(surface):
@@ -43,7 +43,7 @@ class ImageText():
                         for d in dirs:
                             if 0 <= cur[0] + d[0] < array.shape[0] and 0 <= cur[1] + d[1] < array.shape[1]:
                                 nex = array[cur[0] + d[0], cur[1] + d[1]]
-                                if surface.map_rgb((240, 240, 240)) <= nex:
+                                if surface.map_rgb((250, 250, 250)) <= nex:
                                     points.append((cur[0] + d[0], cur[1] + d[1]))
                                     queue.append((cur[0] + d[0], cur[1] + d[1]))
                                     array[cur[0], cur[1]] = (0, 0, 0)
@@ -56,18 +56,21 @@ class ImageText():
                         textboxes.append(Rect(leftX, topY, rightX - leftX, bottomY - topY))
 
         return textboxes
-    def getTextBoxes(self,boxes,text):
+    def getTextBoxes(self,boxes,text,fontN):
 
         for box in boxes:
-            if box.width>self.image.get_width()-self.image.get_width()/10:
-                continue
-            b=TextBox(box,text)
+            
+            b=TextBox(box,text,fontN)
             if not b.isEmpty():
                 self.text_boxes.append(b)
-    def draw(self,screen):
+    def drawN(self,screen):
         screen.blit(self.image,(self.x,self.y))
+        
         for i in self.text_boxes:
-            draw.rect(screen,(255,255,255),(i.x,i.y,i.width,i.height))
+
+            #draw.rect(screen,(255,255,255),(100,100,300,500))
+            draw.rect(screen,(255,255,255),(i.x+self.x,i.y+self.y,i.width,i.height))
+    
 
 
 
