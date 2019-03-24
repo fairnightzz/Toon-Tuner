@@ -19,15 +19,10 @@ class TextBox():
             target_language=TextBox.target).values())[0]
         
         if self.text:
-            leftX=min(contained,key=lambda k: k.x)
-            topY=min(contained,key=lambda k: k.y)
-            rightX=max(contained,key=lambda k:k.x)
-            bottomY=max(contained,key=lambda k:k.y)
-            
-            self.x=box.x
-            self.y=box.y
-            self.width=box.width
-            self.height=box.height
+            self.x=box.x+box.width/4
+            self.y=box.y+box.height/4
+            self.width=box.width/2
+            self.height=box.height/2
             try:
                 self.wrapped = wrap(self.text,self.width/8)
             except:
