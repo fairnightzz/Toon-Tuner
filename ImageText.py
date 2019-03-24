@@ -1,13 +1,14 @@
 import io
 import os
 from TextCell import *
-
+from math import *
 # Imports the Google Cloud client library
 from google.cloud import vision
 from google.cloud.vision import types
 class ImageText():
     client = vision.ImageAnnotatorClient()
     def __init__(self,file_name):
+        self.text_boxes=[]
         """Detects text in the file."""
 
         with io.open(file_name, 'rb') as image_file:
@@ -17,10 +18,14 @@ class ImageText():
 
         response = ImageText.client.text_detection(image=image)
         texts = response.text_annotations
+        self.text=textcell(texts[0])
 
 
 
-        self.text=textcell(texts[0]).translated
+
+
+
+
 
 
 
